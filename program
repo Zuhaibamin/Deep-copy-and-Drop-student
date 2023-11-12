@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_STUDENTS = 100;
+
+struct Student {
+    string name;
+    int id;
+};
+
+class School {
+private:
+    Student students[MAX_STUDENTS];
+    int studentCount;
+
+public:
+    School() : studentCount(0) {}
+
+    void addStudent(const Student& newStudent) {
+        if (studentCount < MAX_STUDENTS) {
+            students[studentCount++] = newStudent;
+        }
+        else {
+            cout << "limt reached";
+        }
+    }
+
+    void dropStudent(int studentId) {
+        int foundIndex = -1;
+
+        for (int i = 0; i < studentCount; ++i) {
+            if (students[i].id == studentId) {
+                foundIndex = i;
+                break;
+            }
+        }
+
+        if (foundIndex != -1) {
+           
+            for (int i = foundIndex; i < studentCount - 1; ++i) {
+                students[i] = students[i + 1];
+            }
+
+            --studentCount;
+        }
+        else {
+            cout << "not found";
+        }
+    }
+};
+
+int main() {
+    School mySchool;
+
+   
+    mySchool.addStudent({ "Ahmed", 1 });
+    mySchool.addStudent({ "Bilal", 2 });
+    mySchool.addStudent({ "ali", 3 });
+
+    
+    mySchool.dropStudent(2);
+
+    return 0;
+}
